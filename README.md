@@ -9,14 +9,14 @@ Despite the name, it does not (yet) provide a user interface for designing objec
 
 here is an excerpt of the code:
 
-if len(sys.argv) < 2 :
-   print "usage: cafd.py object"
-   print "where object names a set of files in the objects subfolder,"
-   print "to wit:"
-   print "objects/object.faces"
-   print "objects/object.edges"
-   print "objects/object.vertices"
-   exit()
+    if len(sys.argv) < 2 :
+        print( "usage: cafd.py object" )
+        print( "where object names a set of files in the objects subfolder," )
+        print( "to wit:" )
+        print( "objects/object.faces" )
+        print( "objects/object.edges" )
+        print( "objects/object.vertices" )
+        exit()
 
 here is another excerpt:
 
