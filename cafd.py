@@ -45,7 +45,7 @@ erase = True
 fish.load_object("objects", sys.argv[1])
 eye = (0.0, 0.0, -5.0)
 fish.set_eye(eye)
-# screen (l,r,b,t), viewport (l,r,b,t), world "frustum" (really a box), eye (x,y,z), distance from eye to screen
+# screen (l,t,r,b), viewport (l,t,r,b), world "frustum" (really a box), eye (x,y,z), distance from eye to screen
 view = view3d.View3d((0,0, w,h), (-1.0,-1.0, 1.0,1.0), (-1.0, 1.0, -1.0, 1.0, -1.0, 1.0), eye, 1.0)
 
 if debug :
@@ -73,31 +73,37 @@ while running:
                fish.assign_random_dark_colors()
             else :
                fish.assign_random_colors()           
+         elif event.key == pygame.K_d :
+            # debug the object
+            fish.debug()
          elif event.key == pygame.K_e :
             # toggle bg erase
             erase = not erase
          elif event.key == pygame.K_h :
-            print( '   c : colorize (replace all edge & face colors with random colors)' )
-            print( '   C : colorize (replace all edge & face colors with random "dark" colors)' )
-            print( '   d : debug' )
-            print( '   e : toggle erase-between-frames' )
-            print( 'h(H) : print this help info' )
-            print( '   i : move object toward viewer (in)' )
-            print( '   o : move object away from viewer (out)' )
-            print( '   q : quit' )
-            print( '   r : record object to file (appends "-new" to original name)' )
-            print( '   s : change z-sort mode (min, max, avg)' )
-            print( '   u : un-colorize (show monochrome pseudo-shaded) [nyi]' )
-            print( '   w : toggle between wireframe & "solid" representation' )
-            print( 'x(X) : rotate cw(CCW) about the x axis' )
-            print( 'y(Y) : rotate cw(CCW) about the y axis' )
-            print( 'z(Z) : rotate cw(CCW) about the z axis' )
-         elif event.key == pygame.K_w :
-            # toggle wireframe
-            wireframe = not wireframe
-         elif event.key == pygame.K_d :
-            # debug the object
-            fish.debug()
+            print( '===============================================================================' )
+            print( '         b: colorize (replace all edge & face colors with random "blue" colors)' )
+            print( '         c: colorize (replace all edge & face colors with random colors)' )
+            print( '         C: colorize (replace all edge & face colors with random "dark" colors)' )
+            print( '         d: debug' )
+            print( '         e: toggle erase-between-frames' )
+            print( '      h(H): print this help info' )
+            print( '         i: move object toward viewer (in)' )
+            print( '         l: (re)load object (restore original orientation & colors)' )
+            print( '         o: move object away from viewer (out)' )
+            print( '         q: quit' )
+            print( '         r: record object to file (appends "-new" to original name)' )
+            print( '         s: change z-sort mode (min, max, avg)' )
+            print( '         u: un-colorize (show monochrome pseudo-shaded)' )
+            print( '         w: toggle between wireframe & "solid" representation' )
+            print( '      x(X): rotate cw(CCW) about the x axis' )
+            print( '      y(Y): rotate cw(CCW) about the y axis' )
+            print( '      z(Z): rotate cw(CCW) about the z axis' )
+            print( 'arrow keys: move object left, right, up, down' )
+            print( '===============================================================================' )
+         elif event.key == pygame.K_l :
+            # reload the object
+            fish = simple3d.Simple3d()
+            fish.load_object("objects", sys.argv[1])
          elif event.key == pygame.K_r :
             # record the object
             fish.store_object("objects", sys.argv[1] + "-new")
@@ -113,6 +119,9 @@ while running:
          elif event.key == pygame.K_u :
             wireframe = False
             fish.assign_grey_shade()
+         elif event.key == pygame.K_w :
+            # toggle wireframe
+            wireframe = not wireframe
       elif event.type == pygame.KEYDOWN :
          current_unicode = event.unicode
          if event.key == pygame.K_i :
