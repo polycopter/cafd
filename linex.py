@@ -52,13 +52,6 @@ def segment_intersect(line1, line2) :
 
    return intersection_pt
    
-def lou() :
-   print( "i love women, i think they're gr8;" )
-   print( "they're a solace to a world in a terrible st8;" )
-   print( "they're a blessing to the eyes, a balm to the soul;" )
-   print( "what a nightmare: to have no women in the world!" )
-   print( " -- L. Reed" )
-   
 # window dimensions
 w = 800
 h = 800
