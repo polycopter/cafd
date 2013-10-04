@@ -40,3 +40,4 @@ here is another excerpt:
             print( '      z(Z) : rotate cw(CCW) about the z axis' )
             print( 'arrow keys : move object left, right, up, down' )
 
+note: the file linex.py is independent, not part of, nor used by, cafd.py
