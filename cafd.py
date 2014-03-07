@@ -64,7 +64,7 @@ while running:
       if event.type == pygame.QUIT :
          running = False
       elif event.type == pygame.KEYUP :
-         # current list of recognized keys: b,c,d,e,h,i,o,q,r,s,u,w,x,y,z (and the 4 arrows)
+         # current list of recognized keys: b,c,d,e,h,i,l,o,q,r,s,u,w,x,y,z (and the 4 arrows)
          # current list of differenti8d capitals: C,X,Y,Z
          if event.key == pygame.K_b :
             fish.assign_random_blue_colors()
@@ -87,18 +87,19 @@ while running:
             print( '         d: debug' )
             print( '         e: toggle erase-between-frames' )
             print( '      h(H): print this help info' )
-            print( '         i: move object toward viewer (in)' )
+            print( '         i: (in) move object toward viewer ( -z )' )
             print( '         l: (re)load object (restore original orientation & colors)' )
-            print( '         o: move object away from viewer (out)' )
+            print( '         o: (out) move object away from viewer ( +z )' )
             print( '         q: quit' )
             print( '         r: record object to file (appends "-new" to original name)' )
             print( '         s: change z-sort mode (min, max, avg)' )
             print( '         u: un-colorize (show monochrome pseudo-shaded)' )
+            print( '         v: vectorize (record object to .svg file representation)' )
             print( '         w: toggle between wireframe & "solid" representation' )
             print( '      x(X): rotate cw(CCW) about the x axis' )
             print( '      y(Y): rotate cw(CCW) about the y axis' )
             print( '      z(Z): rotate cw(CCW) about the z axis' )
-            print( 'arrow keys: move object left, right, up, down' )
+            print( 'arrow keys: move object left, right, up, down ( -x, +x, +y, -y )' )
             print( '===============================================================================' )
          elif event.key == pygame.K_l :
             # reload the object
@@ -119,6 +120,9 @@ while running:
          elif event.key == pygame.K_u :
             wireframe = False
             fish.assign_grey_shade()
+         elif event.key == pygame.K_v :
+            # record the object
+            fish.store_object("objects", sys.argv[1] + "-svg")
          elif event.key == pygame.K_w :
             # toggle wireframe
             wireframe = not wireframe
