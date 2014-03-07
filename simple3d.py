@@ -1,6 +1,11 @@
 import csv
 import math
 import random
+import pygame
+import view3d
+
+def makeRGB(r,g,b) :
+   return (math.floor(r*255),math.floor(g*255),math.floor(b*255))
 
 class Simple3d :
    "3d object representation & manipulation"
@@ -364,6 +369,19 @@ class Simple3d :
          self.face[index][self.F_BLUE] = shade
          index += 1
       print('------------')
+      
+   def draw(self, wireframe, screen, view, sort_mode) :
+      if wireframe :
+         for e in self.edge :
+            pygame.draw.aaline(screen, makeRGB(e[2], e[3], e[4]), view.v2s(view.w2v(self.vertex[e[0]])), view.v2s(view.w2v(self.vertex[e[1]])))
+      else :
+         # z-sort faces
+         self.z_sort(sort_mode)
+         for f in self.face :
+            # -1 in f[3] is a kludge to flag "backfaces"
+            if (f[3] >= 0) :
+                pygame.draw.polygon(screen, makeRGB(f[3], f[4], f[5]), [view.v2s(view.w2v(self.vertex[f[0]])), view.v2s(view.w2v(self.vertex[f[1]])), view.v2s(view.w2v(self.vertex[f[2]]))])
+   	   
          
 if __name__ == '__main__' :
    o = Simple3d()

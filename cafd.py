@@ -5,10 +5,6 @@ import simple3d
 import sys
 import view3d
 
-from math import floor
-
-def makeRGB(r,g,b) :
-   return (floor(r*255),floor(g*255),floor(b*255))
 
 debug = False
 
@@ -64,7 +60,7 @@ while running:
       if event.type == pygame.QUIT :
          running = False
       elif event.type == pygame.KEYUP :
-         # current list of recognized keys: b,c,d,e,h,i,l,o,q,r,s,u,w,x,y,z (and the 4 arrows)
+         # current list of recognized keys: b,c,d,e,h,i,l,o,q,r,s,u,v,w,x,y,z (and the 4 arrows)
          # current list of differenti8d capitals: C,X,Y,Z
          if event.key == pygame.K_b :
             fish.assign_random_blue_colors()
@@ -94,7 +90,7 @@ while running:
             print( '         r: record object to file (appends "-new" to original name)' )
             print( '         s: change z-sort mode (min, max, avg)' )
             print( '         u: un-colorize (show monochrome pseudo-shaded)' )
-            print( '         v: vectorize (record object to .svg file representation)' )
+            print( '         v: vectorize (draw object representation to .svg file)' )
             print( '         w: toggle between wireframe & "solid" representation' )
             print( '      x(X): rotate cw(CCW) about the x axis' )
             print( '      y(Y): rotate cw(CCW) about the y axis' )
@@ -179,22 +175,7 @@ while running:
       if erase :
          screen.fill(bgcolor)
 
-      if wireframe :
-         for e in fish.edge :
-            pygame.draw.aaline(screen, makeRGB(e[2], e[3], e[4]), view.v2s(view.w2v(fish.vertex[e[0]])), view.v2s(view.w2v(fish.vertex[e[1]])))
-            if debug :
-               print( fish.vertex[e[0]], fish.vertex[e[1]] )
-               print( view.w2v(fish.vertex[e[0]]), view.w2v(fish.vertex[e[1]]) )
-               print( view.v2s(view.w2v(fish.vertex[e[0]])), view.v2s(view.w2v(fish.vertex[e[1]])) )
-               debug = False
-      else :
-         # z-sort faces
-         fish.z_sort(sort_mode)
-         for f in fish.face :
-            # -1 in f[3] is a kludge to flag "backfaces"
-            if (f[3] >= 0) :
-                pygame.draw.polygon(screen, makeRGB(f[3], f[4], f[5]), [view.v2s(view.w2v(fish.vertex[f[0]])), view.v2s(view.w2v(fish.vertex[f[1]])), view.v2s(view.w2v(fish.vertex[f[2]]))])
-   
+      fish.draw(wireframe, screen, view, sort_mode)   
       pygame.display.flip()
    
    # sleep   
